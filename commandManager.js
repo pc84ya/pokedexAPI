@@ -1,11 +1,11 @@
 const { getPokemonList, getPokemon } = require("./pokemon");
+const { pokemonCommandMangaer } = require("./subCommand");
 
 const commandManager = async (commands, terminal) => {
-  const [type] = commands;
+  const [type, ...args] = commands;
   switch (type) {
     case "pokemon": {
-      const pokemonList = await getPokemonList();
-      console.log(pokemonList);
+      await pokemonCommandMangaer(args);
       break;
     }
     case "name": {

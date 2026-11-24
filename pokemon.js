@@ -1,11 +1,19 @@
-const getPokemonList = async () => {
-  try {
-    const response = await fetch("https://pokeapi.co/api/v2/pokemon");
-    const data = await response.json();
-    return data.results;
-  } catch (error) {
-    console.log("Error getting pokemon list");
+const callingParams = {};
+const getPokemonList = async (url) => {
+  if (!url) {
+    throw new Error("Page does not exist");
   }
+  const response = await fetch(url);
+  const data = await response.json();
+  data.results.forEach((element) => {
+    console.log(element.name);
+  });
+  return {
+    next: data.next,
+    previous: data.previous,
+  };
+  // callingParams.next = data.next;
+  // callingParams.previous = data.previous;
 };
 
 const getPokemon = async (nameOrId) => {
